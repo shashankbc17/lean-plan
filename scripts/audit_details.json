@@ -1,0 +1,52 @@
+[
+  {
+    "index": 0,
+    "title": "Man performing skating leap",
+    "screenshotPath": "scripts/audit_tile_0.png"
+  },
+  {
+    "index": 1,
+    "title": "Athletic man performing skating …",
+    "screenshotPath": "scripts/audit_tile_1.png"
+  },
+  {
+    "index": 2,
+    "title": "Woman holding hollow body position",
+    "screenshotPath": "scripts/audit_tile_2.png"
+  },
+  {
+    "index": 3,
+    "title": "Fitness model doing hollow hold",
+    "screenshotPath": "scripts/audit_tile_3.png"
+  },
+  {
+    "index": 4,
+    "title": "Man performing hollow body hold",
+    "screenshotPath": "scripts/audit_tile_4.png"
+  },
+  {
+    "index": 5,
+    "title": "Male fitness model performing ho…",
+    "screenshotPath": "scripts/audit_tile_5.png"
+  },
+  {
+    "index": 6,
+    "title": "Woman holding push-up plank posi…",
+    "screenshotPath": "scripts/audit_tile_6.png"
+  },
+  {
+    "index": 7,
+    "title": "Fitness model holding push-up plank",
+    "screenshotPath": "scripts/audit_tile_7.png"
+  },
+  {
+    "index": 8,
+    "title": "Man holding push-up plank position",
+    "screenshotPath": "scripts/audit_tile_8.png"
+  },
+  {
+    "index": 9,
+    "title": "Man holding push-up plank position",
+    "screenshotPath": "scripts/audit_tile_9.png"
+  }
+]

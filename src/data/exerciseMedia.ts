@@ -35,7 +35,8 @@ const EXERCISE_VIDEO_MAP: Record<string, VideoAssetConfig> = {
   'ex-fb2': { slug: 'push-up', hasSideAngle: true },
   'ex-fb3': { slug: 'mountain-climbers', hasSideAngle: false },
   'ex-fb4': { slug: 'bodyweight-squat', hasSideAngle: true },
-  'ex-fb5': { slug: 'plank-shoulder-taps', hasSideAngle: false }
+  'ex-fb5': { slug: 'plank-shoulder-taps', hasSideAngle: false },
+  'ex-crunch': { slug: 'crunch', hasSideAngle: true }
 };
 
 export function getExerciseVideoPath(

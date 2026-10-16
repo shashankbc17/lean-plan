@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { UserMetrics, DayPlan } from './types';
+import type { UserMetrics, DayPlan, ExerciseItem } from './types';
 import { calculatePlan } from './data/planGenerator';
 import { Header } from './components/Header';
 import { HeroLanding } from './components/HeroLanding';
@@ -7,13 +7,19 @@ import { QuizStepContainer } from './components/QuizStepContainer';
 import { CalculationLoader } from './components/CalculationLoader';
 import { FreeUnlockModal } from './components/FreeUnlockModal';
 import { Dashboard } from './components/Dashboard';
+import { AdminExerciseStudio } from './components/AdminExerciseStudio';
+import { ExerciseAnimationModal } from './components/ExerciseAnimationModal';
+import type { AdminExerciseDefinition } from './data/adminExercises';
 import './styles/theme.css';
 
 export function App() {
-  const [viewState, setViewState] = useState<'landing' | 'quiz' | 'calculating' | 'dashboard'>('landing');
+  const [viewState, setViewState] = useState<'landing' | 'quiz' | 'calculating' | 'dashboard' | 'admin'>('landing');
+  const [previousView, setPreviousView] = useState<'landing' | 'quiz' | 'calculating' | 'dashboard'>('landing');
   const [metrics, setMetrics] = useState<UserMetrics | null>(null);
   const [plan, setPlan] = useState<DayPlan | null>(null);
   const [showUnlockModal, setShowUnlockModal] = useState<boolean>(false);
+  const [detailedModalExercise, setDetailedModalExercise] = useState<ExerciseItem | null>(null);
+  const [detailedModalGender, setDetailedModalGender] = useState<'male' | 'female'>('male');
 
   // Restore existing plan from localStorage if available
   useEffect(() => {
@@ -69,14 +75,37 @@ export function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleOpenAdmin = () => {
+    if (viewState !== 'admin') {
+      setPreviousView(viewState);
+      setViewState('admin');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      setViewState(previousView);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleCloseAdmin = () => {
+    setViewState(previousView);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleOpenDetailedModal = (ex: AdminExerciseDefinition, gender: 'male' | 'female') => {
+    setDetailedModalExercise(ex);
+    setDetailedModalGender(gender);
+  };
+
   return (
     <>
       <div className="ambient-glow" />
 
-      <div className="app-shell">
+      <div className="app-shell" style={viewState === 'admin' ? { maxWidth: '1100px' } : undefined}>
         <Header
           showReset={viewState === 'dashboard'}
           onReset={handleRetake}
+          onOpenAdmin={handleOpenAdmin}
+          isAdminActive={viewState === 'admin'}
         />
 
         <main style={{ flex: 1 }}>
@@ -102,6 +131,13 @@ export function App() {
               onRetake={handleRetake}
             />
           )}
+
+          {viewState === 'admin' && (
+            <AdminExerciseStudio
+              onBack={handleCloseAdmin}
+              onOpenDetailedModal={handleOpenDetailedModal}
+            />
+          )}
         </main>
       </div>
 
@@ -110,6 +146,18 @@ export function App() {
         <FreeUnlockModal
           plan={plan}
           onUnlock={() => setShowUnlockModal(false)}
+        />
+      )}
+
+      {/* Biomechanical Motion Detail Modal */}
+      {detailedModalExercise && (
+        <ExerciseAnimationModal
+          exercise={detailedModalExercise}
+          userGender={detailedModalGender}
+          onClose={() => setDetailedModalExercise(null)}
+          onStartTimer={() => {
+            setDetailedModalExercise(null);
+          }}
         />
       )}
     </>

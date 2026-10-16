@@ -1,12 +1,13 @@
-import React from 'react';
-import { Flame, RotateCcw, ShieldCheck } from 'lucide-react';
+import { Flame, RotateCcw, ShieldCheck, Film } from 'lucide-react';
 
 interface HeaderProps {
   showReset?: boolean;
   onReset?: () => void;
+  onOpenAdmin?: () => void;
+  isAdminActive?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ showReset, onReset }) => {
+export const Header: React.FC<HeaderProps> = ({ showReset, onReset, onOpenAdmin, isAdminActive }) => {
   return (
     <header className="app-header">
       <div className="brand-badge">
@@ -17,9 +18,18 @@ export const Header: React.FC<HeaderProps> = ({ showReset, onReset }) => {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <button
+          onClick={onOpenAdmin}
+          className={`btn-admin-header ${isAdminActive ? 'active' : ''}`}
+          title="Exercise Library & Video Stack"
+        >
+          <Film size={14} />
+          <span>Exercise Studio</span>
+        </button>
+
         <div className="free-tag">
           <ShieldCheck size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: '-1px' }} />
-          100% Free · No Payment
+          100% Free
         </div>
 
         {showReset && onReset && (
